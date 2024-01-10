@@ -3,7 +3,7 @@ package org.example.controllers.post;
 import io.javalin.http.Context;
 import org.example.dto.PostContentDto;
 import org.example.dto.UserUsernameAndRoleDto;
-import org.example.services.PostService;
+import org.example.services.post.CreatePostService;
 import org.example.utils.JwtUtils;
 
 public class CreatePostController {
@@ -14,7 +14,7 @@ public class CreatePostController {
 
 
             try {
-                PostService.createPost(post, author);
+                CreatePostService.createPost(post, author);
                 ctx.status(201).json(post.getContent());
             } catch (RuntimeException e) {
                 ctx.status(500).json(e.getMessage());

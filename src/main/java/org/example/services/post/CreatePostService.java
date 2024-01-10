@@ -1,4 +1,4 @@
-package org.example.services;
+package org.example.services.post;
 
 import org.example.dto.PostContentDto;
 import org.example.dto.UserUsernameAndRoleDto;
@@ -10,7 +10,7 @@ import org.example.repositories.UserRepository;
 import java.time.LocalDateTime;
 
 
-public class PostService {
+public class CreatePostService {
 
     public static void createPost(PostContentDto postDto, UserUsernameAndRoleDto author) {
 
