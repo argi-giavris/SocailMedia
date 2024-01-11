@@ -1,9 +1,11 @@
 package org.example.repositories;
 
-import org.example.dto.UserUsernameAndRoleDto;
 import org.example.models.Post;
-import org.example.models.User;
 import org.example.utils.DbUtils;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 import java.sql.Timestamp;
 import java.sql.*;
@@ -49,6 +51,39 @@ public class PostRepository {
                 } catch (SQLException e) {
                     throw new RuntimeException(e);
                 }
+            });
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static List<Post> getPostsById(List<Integer> usersIds) {
+        String query = "SELECT * FROM posts WHERE userId IN (" + String.join(",", Collections.nCopies(usersIds.size(), "?")) + ") Order by timestamp asc";
+        List<Post> posts = new ArrayList<>();
+
+        try {
+            return DbUtils.inTransaction(connection -> {
+                try (PreparedStatement statement = connection.prepareStatement(query)) {
+                    for (int i = 0; i < usersIds.size(); i++) {
+                        statement.setInt(i + 1, usersIds.get(i));
+                    }
+
+                    try (ResultSet resultSet = statement.executeQuery()) {
+                        while (resultSet.next()) {
+                            Post post = new Post();
+                            post.setId(resultSet.getInt("postId"));
+                            post.setUserId(resultSet.getInt("userId"));
+                            post.setContent(resultSet.getString("content"));
+                            post.setTimestamp(resultSet.getTimestamp("timestamp").toLocalDateTime());
+
+                            posts.add(post);
+                        }
+                    }
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+
+                return posts;
             });
         } catch (SQLException e) {
             throw new RuntimeException(e);

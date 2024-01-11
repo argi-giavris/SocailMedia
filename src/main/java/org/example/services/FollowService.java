@@ -11,6 +11,9 @@ public class FollowService {
 
         UserRepository userRepo = new UserRepository();
         Integer userId = userRepo.getUserIdByUsername(username);
+        if(userId == loggedUser.getFollowingUserId()) {
+            throw new RuntimeException("Cannot follow yourself");
+        }
         loggedUser.setUserId(userId);
 
         FollowerRepository followerRepo = new FollowerRepository();

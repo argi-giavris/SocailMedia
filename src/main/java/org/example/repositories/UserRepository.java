@@ -152,6 +152,31 @@ public class UserRepository {
         return userId[0];
     }
 
+    public String getUsernameById(Integer userId) {
+        String query = "SELECT username FROM users WHERE id = ?";
+        final String[] username = new String[1];
+
+        try {
+            DbUtils.inTransactionWithoutResult(connection -> {
+                try (PreparedStatement statement = connection.prepareStatement(query)) {
+                    statement.setInt(1, userId);
+
+                    try (ResultSet resultSet = statement.executeQuery()) {
+                        if (resultSet.next()) {
+                            username[0] = resultSet.getString("username");
+                        }
+                    }
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+            });
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return username[0];
+    }
+
 
 
 

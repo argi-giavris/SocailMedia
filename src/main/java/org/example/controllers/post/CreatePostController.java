@@ -8,16 +8,16 @@ import org.example.utils.JwtUtils;
 
 public class CreatePostController {
 
-        public void post(Context ctx){
-            PostContentDto post = ctx.bodyAsClass(PostContentDto.class);
-            UserUsernameAndRoleDto author = JwtUtils.getUserFromJwt(ctx);
+    public void post(Context ctx) {
+        PostContentDto post = ctx.bodyAsClass(PostContentDto.class);
+        UserUsernameAndRoleDto author = JwtUtils.getUserFromJwt(ctx);
 
 
-            try {
-                CreatePostService.createPost(post, author);
-                ctx.status(201).json(post.getContent());
-            } catch (RuntimeException e) {
-                ctx.status(500).json(e.getMessage());
-            }
+        try {
+            CreatePostService.createPost(post, author);
+            ctx.status(201).json(post.getContent());
+        } catch (RuntimeException e) {
+            ctx.status(500).json(e.getMessage());
         }
+    }
 }
