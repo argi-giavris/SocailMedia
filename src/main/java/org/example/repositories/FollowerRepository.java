@@ -81,8 +81,35 @@ public class FollowerRepository {
         }
     }
 
-    public static List<Integer> getFollowersIds(Integer userId) {
+    public static List<Integer> getFollowingUserIds(Integer userId) {
         String query = "Select following_user_id from followers where user_id = ?";
+
+        try {
+            return DbUtils.inTransaction(connection -> {
+                List<Integer> followingIds = new ArrayList<>();
+
+                try (PreparedStatement statement = connection.prepareStatement(query)) {
+                    statement.setInt(1, userId);
+
+                    try (ResultSet resultSet = statement.executeQuery()) {
+                        while (resultSet.next()) {
+                            followingIds.add(resultSet.getInt("following_user_id"));
+                        }
+                    }
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+
+                return followingIds;
+            });
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
+    public static List<Integer> getFollowersUserIds(Integer userId) {
+        String query = "Select user_id from followers where following_user_id = ?";
 
         try {
             return DbUtils.inTransaction(connection -> {
@@ -93,7 +120,7 @@ public class FollowerRepository {
 
                     try (ResultSet resultSet = statement.executeQuery()) {
                         while (resultSet.next()) {
-                            followerIds.add(resultSet.getInt("following_user_id"));
+                            followerIds.add(resultSet.getInt("user_id"));
                         }
                     }
                 } catch (SQLException e) {

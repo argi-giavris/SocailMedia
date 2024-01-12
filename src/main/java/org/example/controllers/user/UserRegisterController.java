@@ -11,7 +11,7 @@ public class UserRegisterController {
         User user = ctx.bodyAsClass(User.class);
         try {
             UserService.registerUser(user);
-            ctx.status(201).json(user);
+            ctx.status(201).json(user.getUsername());
         } catch (RuntimeException e) {
             ctx.status(500).json(e.getMessage());
         }

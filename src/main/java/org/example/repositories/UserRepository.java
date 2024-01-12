@@ -9,7 +9,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 public class UserRepository {
     public static void registerUser(User user) {
@@ -152,7 +155,7 @@ public class UserRepository {
         return userId[0];
     }
 
-    public String getUsernameById(Integer userId) {
+    public static String getUsernameById(Integer userId) {
         String query = "SELECT username FROM users WHERE id = ?";
         final String[] username = new String[1];
 
@@ -175,6 +178,34 @@ public class UserRepository {
         }
 
         return username[0];
+    }
+
+    public static List<String> getListOfUsernamesById(List<Integer> userIds) {
+        String query = "SELECT username FROM users WHERE id IN (" +
+                userIds.stream()
+                        .map(String::valueOf)
+                        .collect(Collectors.joining(",")) +
+                ")";
+
+        try {
+            return DbUtils.inTransaction(connection -> {
+                List<String> usernames = new ArrayList<>();
+
+                try (PreparedStatement statement = connection.prepareStatement(query)) {
+                    try (ResultSet resultSet = statement.executeQuery()) {
+                        while (resultSet.next()) {
+                            usernames.add(resultSet.getString("username"));
+                        }
+                    }
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+
+                return usernames;
+            });
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 

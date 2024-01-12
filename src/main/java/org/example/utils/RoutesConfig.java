@@ -2,9 +2,12 @@ package org.example.utils;
 
 import io.javalin.Javalin;
 import org.example.controllers.comment.CreateCommentController;
+import org.example.controllers.comment.ViewCommentsOfOwnPostController;
 import org.example.controllers.follower.FollowController;
+import org.example.controllers.follower.GetFollowersController;
 import org.example.controllers.post.CreatePostController;
 import org.example.controllers.post.ViewPostController;
+import org.example.controllers.post.ViewUserPostsWithCommentsController;
 import org.example.controllers.user.UserLoginController;
 import org.example.controllers.user.UserRegisterController;
 
@@ -17,6 +20,9 @@ public class RoutesConfig {
         CreateCommentController ccc = new CreateCommentController();
         FollowController fc = new FollowController();
         ViewPostController vpc = new ViewPostController();
+        ViewUserPostsWithCommentsController vupc = new ViewUserPostsWithCommentsController();
+        ViewCommentsOfOwnPostController vcoop = new ViewCommentsOfOwnPostController();
+        GetFollowersController gfc = new GetFollowersController();
         JwtUtils jwt = new JwtUtils();
 
         app.post("/rest/register", urc::register);
@@ -28,5 +34,9 @@ public class RoutesConfig {
         app.post("/api/follow", fc::follow);
         app.post("/api/unfollow", fc::unfollow);
         app.get("/api/posts", vpc::viewFollowersPosts);
+        app.get("/api/my-posts-comments", vupc::viewUserPostsWithComments);
+        app.get("/api/comments", vcoop::viewCommentsOfOwnPost);
+        app.get("/api/followers", gfc::viewFollowers);
+        app.get("/api/following", gfc::viewFollowing);
     }
 }

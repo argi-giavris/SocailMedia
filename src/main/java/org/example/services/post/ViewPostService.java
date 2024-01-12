@@ -2,7 +2,6 @@ package org.example.services.post;
 
 import org.example.models.Post;
 import org.example.models.PostView;
-import org.example.models.User;
 import org.example.repositories.FollowerRepository;
 import org.example.repositories.PostRepository;
 import org.example.repositories.UserRepository;
@@ -17,12 +16,12 @@ public class ViewPostService {
         UserRepository userRepo = new UserRepository();
         Integer userId = userRepo.getUserIdByUsername(username);
 
-        List<Integer> followersIds = FollowerRepository.getFollowersIds(userId);
+        List<Integer> followersIds = FollowerRepository.getFollowingUserIds(userId);
         if (followersIds.isEmpty()) {
             throw new RuntimeException("You are not following anyone");
         }
 
-        List<Post> posts = PostRepository.getPostsById(followersIds);
+        List<Post> posts = PostRepository.getPostsByUserId(followersIds);
 
         if (posts.isEmpty()){
             throw new RuntimeException("Following Users have no posts yet");

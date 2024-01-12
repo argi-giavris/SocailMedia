@@ -57,7 +57,7 @@ public class PostRepository {
         }
     }
 
-    public static List<Post> getPostsById(List<Integer> usersIds) {
+    public static List<Post> getPostsByUserId(List<Integer> usersIds) {
         String query = "SELECT * FROM posts WHERE userId IN (" + String.join(",", Collections.nCopies(usersIds.size(), "?")) + ") Order by timestamp asc";
         List<Post> posts = new ArrayList<>();
 
@@ -84,6 +84,30 @@ public class PostRepository {
                 }
 
                 return posts;
+            });
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static List<Integer> getPostsIdByUserId(Integer userId) {
+        String query = "SELECT postid FROM posts WHERE userId = ?";
+        List<Integer> postIds = new ArrayList<>();
+
+        try {
+            return DbUtils.inTransaction(connection -> {
+                try (PreparedStatement statement = connection.prepareStatement(query)) {
+                    statement.setInt(1, userId);
+
+                    try (ResultSet resultSet = statement.executeQuery()) {
+                        while (resultSet.next()) {
+                            postIds.add(resultSet.getInt("postId"));
+                        }
+                    }
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+                return postIds;
             });
         } catch (SQLException e) {
             throw new RuntimeException(e);
