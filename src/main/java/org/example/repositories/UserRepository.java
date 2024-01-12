@@ -22,7 +22,7 @@ public class UserRepository {
             DbUtils.inTransactionWithoutResult(connection -> {
                 try (PreparedStatement statement = connection.prepareStatement(query, PreparedStatement.RETURN_GENERATED_KEYS)) {
                     statement.setString(1, user.getUsername());
-                    statement.setString(2,  hashPassword(user.getPassword()));
+                    statement.setString(2, hashPassword(user.getPassword()));
                     statement.setString(3, String.valueOf(user.getRole()));
                     statement.executeUpdate();
 
@@ -80,13 +80,13 @@ public class UserRepository {
     }
 
 
-   /*
-    Allows numeric values from 0 to 9.
-    Allow both uppercase and lowercase letters from a to z.
-    Hyphen “-” and dot “.” aren’t allowed at the start and end of the domain part.
-    No consecutive dots.
-    */
-    public boolean emailHasValidFormat(String email){
+    /*
+     Allows numeric values from 0 to 9.
+     Allow both uppercase and lowercase letters from a to z.
+     Hyphen “-” and dot “.” aren’t allowed at the start and end of the domain part.
+     No consecutive dots.
+     */
+    public boolean emailHasValidFormat(String email) {
         String regexPattern = "^(?=.{1,64}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@"
                 + "[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$";
         return Pattern.compile(regexPattern)
@@ -94,7 +94,7 @@ public class UserRepository {
                 .matches();
     }
 
-    private static String hashPassword(String password){
+    private static String hashPassword(String password) {
         return BCrypt.hashpw(password, BCrypt.gensalt());
     }
 
@@ -102,7 +102,7 @@ public class UserRepository {
         return BCrypt.checkpw(password, hashedPassword);
     }
 
-    public User getUserByUsername(String username){
+    public User getUserByUsername(String username) {
         String query = "SELECT * FROM users WHERE username = ?";
 
         try (Connection connection = DbUtils.dataSource.getConnection()) {
@@ -208,7 +208,31 @@ public class UserRepository {
         }
     }
 
+    public static List<String> searchUsers(String searchTerm) {
+        String query = "SELECT username FROM users WHERE username LIKE ?";
 
+        try {
+            return DbUtils.inTransaction(connection -> {
+                List<String> matchingUsernames = new ArrayList<>();
+
+                try (PreparedStatement statement = connection.prepareStatement(query)) {
+                    statement.setString(1, "%" + searchTerm + "%");
+
+                    try (ResultSet resultSet = statement.executeQuery()) {
+                        while (resultSet.next()) {
+                            matchingUsernames.add(resultSet.getString("username"));
+                        }
+                    }
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+
+                return matchingUsernames;
+            });
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
 
 }

@@ -10,6 +10,7 @@ import org.example.controllers.post.ViewPostController;
 import org.example.controllers.post.ViewUserPostsWithCommentsController;
 import org.example.controllers.user.UserLoginController;
 import org.example.controllers.user.UserRegisterController;
+import org.example.controllers.user.UserSearchController;
 
 public class RoutesConfig {
 
@@ -23,6 +24,7 @@ public class RoutesConfig {
         ViewUserPostsWithCommentsController vupc = new ViewUserPostsWithCommentsController();
         ViewCommentsOfOwnPostController vcoop = new ViewCommentsOfOwnPostController();
         GetFollowersController gfc = new GetFollowersController();
+        UserSearchController usc = new UserSearchController();
         JwtUtils jwt = new JwtUtils();
 
         app.post("/rest/register", urc::register);
@@ -38,5 +40,6 @@ public class RoutesConfig {
         app.get("/api/comments", vcoop::viewCommentsOfOwnPost);
         app.get("/api/followers", gfc::viewFollowers);
         app.get("/api/following", gfc::viewFollowing);
+        app.get("/api/search/user", usc::searchUser);
     }
 }

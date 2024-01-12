@@ -4,16 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="25a1194c-042e-4ec1-90ba-cd90e50d3ba7" name="Changes" comment="first view commit">
+    <list default="true" id="25a1194c-042e-4ec1-90ba-cd90e50d3ba7" name="Changes" comment="views">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/controllers/user/UserRegisterController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/controllers/user/UserRegisterController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/repositories/CommentRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/repositories/CommentRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/repositories/FollowerRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/repositories/FollowerRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/repositories/PostRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/repositories/PostRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/repositories/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/repositories/UserRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/services/CommentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/services/CommentService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/services/FollowService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/services/FollowService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/services/post/ViewPostService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/services/post/ViewPostService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/services/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/services/UserService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/utils/RoutesConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/utils/RoutesConfig.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -97,7 +91,7 @@
       <workItem from="1704380695163" duration="15902000" />
       <workItem from="1704456174748" duration="60053000" />
       <workItem from="1704900479928" duration="11937000" />
-      <workItem from="1704983459284" duration="16962000" />
+      <workItem from="1704983459284" duration="19107000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <option name="closed" value="true" />
@@ -123,7 +117,15 @@
       <option name="project" value="LOCAL" />
       <updated>1704981440439</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="views">
+      <option name="closed" value="true" />
+      <created>1705064655972</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1705064655972</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -133,7 +135,8 @@
     <MESSAGE value="Initial commit" />
     <MESSAGE value="commit" />
     <MESSAGE value="first view commit" />
-    <option name="LAST_COMMIT_MESSAGE" value="first view commit" />
+    <MESSAGE value="views" />
+    <option name="LAST_COMMIT_MESSAGE" value="views" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

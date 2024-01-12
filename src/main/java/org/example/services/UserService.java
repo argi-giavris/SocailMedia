@@ -1,16 +1,10 @@
 package org.example.services;
 
-import com.auth0.jwt.JWT;
-import com.auth0.jwt.algorithms.Algorithm;
+
 import org.example.models.User;
 import org.example.repositories.UserRepository;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
 import org.example.utils.JwtUtils;
-
-import java.util.Date;
-
-
+import java.util.List;
 
 public class UserService {
 
@@ -51,6 +45,17 @@ public class UserService {
             return storedUser;
         }
         return null;
+    }
+
+    public static List<String> searchUsersWithSearchTerm(String searchTerm) {
+
+        List<String> matchingUsernames = UserRepository.searchUsers(searchTerm);
+
+        if (matchingUsernames.isEmpty()) {
+            throw new RuntimeException("No matching users found");
+        }
+
+        return matchingUsernames;
     }
 
 
