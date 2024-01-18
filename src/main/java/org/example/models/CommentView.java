@@ -11,6 +11,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CommentView {
+    Integer postId;
     String username;
     String content;
     LocalDateTime createdAt;

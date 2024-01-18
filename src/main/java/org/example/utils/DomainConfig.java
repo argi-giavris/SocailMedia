@@ -4,12 +4,13 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class AppConfig {
-    private JwtConfig jwt;
-    private DomainConfig domainConfig;
+public class DomainConfig {
+    private String localDomain;
+    //private String stagingDomain; etc
 
-    // Standard getters and setters
 }
+

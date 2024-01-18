@@ -1,7 +1,7 @@
 package org.example.controllers.user;
 
 import org.example.models.User;
-import org.example.services.UserService;
+import org.example.services.user.UserService;
 import io.javalin.http.Context;
 
 import java.util.Map;

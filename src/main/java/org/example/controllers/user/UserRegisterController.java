@@ -3,7 +3,7 @@ package org.example.controllers.user;
 
 import io.javalin.http.Context;
 import org.example.models.User;
-import org.example.services.UserService;
+import org.example.services.user.UserService;
 
 public class UserRegisterController {
 

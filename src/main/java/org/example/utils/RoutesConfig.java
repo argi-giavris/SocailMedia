@@ -5,9 +5,7 @@ import org.example.controllers.comment.CreateCommentController;
 import org.example.controllers.comment.ViewCommentsOfOwnPostController;
 import org.example.controllers.follower.FollowController;
 import org.example.controllers.follower.GetFollowersController;
-import org.example.controllers.post.CreatePostController;
-import org.example.controllers.post.ViewPostController;
-import org.example.controllers.post.ViewUserPostsWithCommentsController;
+import org.example.controllers.post.*;
 import org.example.controllers.user.UserLoginController;
 import org.example.controllers.user.UserRegisterController;
 import org.example.controllers.user.UserSearchController;
@@ -25,6 +23,8 @@ public class RoutesConfig {
         ViewCommentsOfOwnPostController vcoop = new ViewCommentsOfOwnPostController();
         GetFollowersController gfc = new GetFollowersController();
         UserSearchController usc = new UserSearchController();
+        GetPostSharedLinkController gpsl = new GetPostSharedLinkController();
+        ViewPostWithCommentsController vpwcc = new ViewPostWithCommentsController();
         JwtUtils jwt = new JwtUtils();
 
         app.post("/rest/register", urc::register);
@@ -40,6 +40,8 @@ public class RoutesConfig {
         app.get("/api/comments", vcoop::viewCommentsOfOwnPost);
         app.get("/api/followers", gfc::viewFollowers);
         app.get("/api/following", gfc::viewFollowing);
-        app.get("/api/search/user", usc::searchUser);
+        app.get("/api/search/user", usc::searchUser); //http://localhost:8080/api/search/user?name=test
+        app.get("/api/share-post", gpsl::getSharedLinkOfPost);
+        app.get("/rest/posts", vpwcc::viewPostWthComments); //http://localhost:8080/rest/posts?postId=7
     }
 }

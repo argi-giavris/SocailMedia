@@ -9,7 +9,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Follower {
 
-    Integer userId;
-    Integer followingUserId;
+    Integer followerUserId;
+    Integer userIdToFollow;
 
+    public static Follower newFollowersRelationship(Integer followerUserId, Integer userIdToFollow) {
+        return new Follower(followerUserId, userIdToFollow);
+    }
 }

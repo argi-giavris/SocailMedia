@@ -1,39 +1,15 @@
 package org.example.repositories;
 
 import org.example.models.Follower;
+import org.example.models.Paging;
 import org.example.utils.DbUtils;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Timestamp;
+import java.net.ConnectException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class FollowerRepository {
-
-    public boolean followersRelationshipExists(Follower loggedUser) {
-        String query = "Select user_id from followers where user_id = ? and following_user_id = ?";
-
-        try {
-            return DbUtils.inTransaction(connection -> {
-                try (PreparedStatement statement = connection.prepareStatement(query)) {
-                    statement.setInt(1, loggedUser.getUserId());
-                    statement.setInt(2, loggedUser.getFollowingUserId());
-
-                    try (ResultSet resultSet = statement.executeQuery()) {
-                        return resultSet.next();
-                    } catch (SQLException e) {
-                        throw new RuntimeException(e);
-                    }
-                } catch (SQLException e) {
-                    throw new RuntimeException(e);
-                }
-            });
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
 
     public static void addFollowerRepo(Follower user) {
 
@@ -42,8 +18,8 @@ public class FollowerRepository {
         try {
             int rowsAffected = DbUtils.inTransaction(connection -> {
                 try (PreparedStatement statement = connection.prepareStatement(query, PreparedStatement.RETURN_GENERATED_KEYS)) {
-                    statement.setInt(1, user.getUserId());
-                    statement.setInt(2, user.getFollowingUserId());
+                    statement.setInt(1, user.getFollowerUserId());
+                    statement.setInt(2, user.getUserIdToFollow());
                     return statement.executeUpdate(); // Returns the number of rows affected
                 }
             });
@@ -65,8 +41,8 @@ public class FollowerRepository {
         try {
             int rowsAffected = DbUtils.inTransaction(connection -> {
                 try (PreparedStatement statement = connection.prepareStatement(query, PreparedStatement.RETURN_GENERATED_KEYS)) {
-                    statement.setInt(1, user.getUserId());
-                    statement.setInt(2, user.getFollowingUserId());
+                    statement.setInt(1, user.getFollowerUserId());
+                    statement.setInt(2, user.getUserIdToFollow());
                     return statement.executeUpdate(); // Returns the number of rows affected
                 }
             });
@@ -81,57 +57,90 @@ public class FollowerRepository {
         }
     }
 
-    public static List<Integer> getFollowingUserIds(Integer userId) {
-        String query = "Select following_user_id from followers where user_id = ?";
+    public static List<Integer> getFollowingUserIds(Connection connection, Integer userId, Paging paging) {
+        String query = "Select following_user_id from followers where user_id = ? LIMIT ? OFFSET ?";
 
-        try {
-            return DbUtils.inTransaction(connection -> {
-                List<Integer> followingIds = new ArrayList<>();
+        List<Integer> followingIds = new ArrayList<>();
 
-                try (PreparedStatement statement = connection.prepareStatement(query)) {
-                    statement.setInt(1, userId);
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setInt(1, userId);
+            statement.setInt(2, paging.getPageSize());
+            statement.setInt(3, (paging.getPage() - 1) * paging.getPageSize());
 
-                    try (ResultSet resultSet = statement.executeQuery()) {
-                        while (resultSet.next()) {
-                            followingIds.add(resultSet.getInt("following_user_id"));
-                        }
-                    }
-                } catch (SQLException e) {
-                    throw new RuntimeException(e);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                while (resultSet.next()) {
+                    followingIds.add(resultSet.getInt("following_user_id"));
                 }
-
-                return followingIds;
-            });
+            }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+
+        return followingIds;
 
     }
 
-    public static List<Integer> getFollowersUserIds(Integer userId) {
-        String query = "Select user_id from followers where following_user_id = ?";
+    public static List<Integer> getFollowersUserIds(Connection connection, Integer userId, Paging paging) {
+        String query = "Select user_id from followers where following_user_id = ? LIMIT ? OFFSET ?";
 
-        try {
-            return DbUtils.inTransaction(connection -> {
-                List<Integer> followerIds = new ArrayList<>();
+        List<Integer> followerIds = new ArrayList<>();
 
-                try (PreparedStatement statement = connection.prepareStatement(query)) {
-                    statement.setInt(1, userId);
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setInt(1, userId);
+            statement.setInt(2, paging.getPageSize());
+            statement.setInt(3, (paging.getPage() - 1) * paging.getPageSize());
 
-                    try (ResultSet resultSet = statement.executeQuery()) {
-                        while (resultSet.next()) {
-                            followerIds.add(resultSet.getInt("user_id"));
-                        }
-                    }
-                } catch (SQLException e) {
-                    throw new RuntimeException(e);
+
+            try (ResultSet resultSet = statement.executeQuery()) {
+                while (resultSet.next()) {
+                    followerIds.add(resultSet.getInt("user_id"));
                 }
-
-                return followerIds;
-            });
+            }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
 
+        return followerIds;
+    }
+
+    public static Integer countOfFollowingUsers(Connection connection, Integer userId) {
+        String query = "Select COUNT(*) FROM followers WHERE user_id = ?";
+
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setInt(1, userId);
+
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    int count = resultSet.getInt(1);
+                    return count;
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return 0;
+    }
+
+    public boolean followersRelationshipExists(Integer followerUserId, Integer userIdToFollow) {
+        String query = "Select user_id from followers where user_id = ? and following_user_id = ?";
+
+        try {
+            return DbUtils.inTransaction(connection -> {
+                try (PreparedStatement statement = connection.prepareStatement(query)) {
+                    statement.setInt(1, followerUserId);
+                    statement.setInt(2, userIdToFollow);
+
+                    try (ResultSet resultSet = statement.executeQuery()) {
+                        return resultSet.next();
+                    } catch (SQLException e) {
+                        throw new RuntimeException(e);
+                    }
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+            });
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

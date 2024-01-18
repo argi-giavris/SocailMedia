@@ -1,3 +1,5 @@
 jwt:
   secretKey: "b5498854e238943a22c1f8ccfd4d8523b72b6e8880520e2eb7e72dbc06a17887"
   expiresInMinutes: 36000000
+domainConfig:
+  localDomain: "http://localhost:8080/"

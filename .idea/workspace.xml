@@ -6,9 +6,31 @@
   <component name="ChangeListManager">
     <list default="true" id="25a1194c-042e-4ec1-90ba-cd90e50d3ba7" name="Changes" comment="views">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/controllers/comment/CreateCommentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/controllers/comment/CreateCommentController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/controllers/comment/ViewCommentsOfOwnPostController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/controllers/comment/ViewCommentsOfOwnPostController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/controllers/follower/FollowController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/controllers/follower/FollowController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/controllers/follower/GetFollowersController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/controllers/follower/GetFollowersController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/controllers/post/ViewPostController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/controllers/post/ViewPostController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/controllers/post/ViewUserPostsWithCommentsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/controllers/post/ViewUserPostsWithCommentsController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/controllers/user/UserLoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/controllers/user/UserLoginController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/controllers/user/UserRegisterController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/controllers/user/UserRegisterController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/controllers/user/UserSearchController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/controllers/user/UserSearchController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/models/CommentView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/models/CommentView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/models/Follower.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/models/Follower.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/models/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/models/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/repositories/CommentRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/repositories/CommentRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/repositories/FollowerRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/repositories/FollowerRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/repositories/PostRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/repositories/PostRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/repositories/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/repositories/UserRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/services/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/services/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/services/CommentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/services/comment/CreateCommentService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/services/FollowService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/services/follower/FollowService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/services/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/services/user/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/services/post/CreatePostService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/services/post/CreatePostService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/services/post/ViewPostService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/services/post/ViewPostService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/services/post/ViewPostsWithCommentsService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/services/post/ViewPostsWithCommentsService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/utils/AppConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/utils/AppConfig.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/utils/RoutesConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/utils/RoutesConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/config.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/config.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -44,6 +66,7 @@
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
     &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -92,6 +115,8 @@
       <workItem from="1704456174748" duration="60053000" />
       <workItem from="1704900479928" duration="11937000" />
       <workItem from="1704983459284" duration="19107000" />
+      <workItem from="1705313823308" duration="2617000" />
+      <workItem from="1705401786340" duration="50743000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <option name="closed" value="true" />
@@ -148,13 +173,8 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/org/example/services/post/CreatePostService.java</url>
-          <line>16</line>
+          <line>21</line>
           <option name="timeStamp" value="15" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/org/example/services/CommentService.java</url>
-          <line>18</line>
-          <option name="timeStamp" value="19" />
         </line-breakpoint>
         <breakpoint enabled="true" type="java-exception">
           <properties class="com.fasterxml.jackson.databind.exc.InvalidDefinitionException" package="com.fasterxml.jackson.databind.exc" />

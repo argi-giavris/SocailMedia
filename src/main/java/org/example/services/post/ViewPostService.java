@@ -1,39 +1,46 @@
 package org.example.services.post;
 
+import org.example.models.Paging;
 import org.example.models.Post;
 import org.example.models.PostView;
 import org.example.repositories.FollowerRepository;
 import org.example.repositories.PostRepository;
 import org.example.repositories.UserRepository;
+import org.example.utils.DbUtils;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 
 public class ViewPostService {
 
-    public static List<PostView> getFollowersViewPosts(String username) {
-        UserRepository userRepo = new UserRepository();
-        Integer userId = userRepo.getUserIdByUsername(username);
+    public static List<PostView> getFollowersViewPosts(String username, Paging paging ) {
+        try {
+            return DbUtils.inTransaction(connection -> {
+                Integer userId = UserRepository.getUserIdByUsername(connection,username);
 
-        List<Integer> followersIds = FollowerRepository.getFollowingUserIds(userId);
-        if (followersIds.isEmpty()) {
-            throw new RuntimeException("You are not following anyone");
+                if (FollowerRepository.countOfFollowingUsers(connection, userId) == 0) {
+                    throw new RuntimeException("You are not following anyone");
+                }
+
+                List<Post> posts = PostRepository.getPostsOfFollowingUsers(connection, userId, paging);
+
+                if (posts.isEmpty()) {
+                    throw new RuntimeException("Following Users have no posts yet");
+                }
+
+                List<PostView> postViews = new ArrayList<>();
+                for (Post post : posts) {
+                    String postUsername = UserRepository.getUsernameById(connection, post.getUserId());
+                    postViews.add(new PostView(postUsername, post.getContent(), post.getTimestamp()));
+                }
+
+                return postViews;
+            });
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
-
-        List<Post> posts = PostRepository.getPostsByUserId(followersIds);
-
-        if (posts.isEmpty()){
-            throw new RuntimeException("Following Users have no posts yet");
-        }
-
-        List<PostView> postViews = new ArrayList<>();
-        for (Post post : posts) {
-            String postUsername = userRepo.getUsernameById(post.getUserId());
-            postViews.add(new PostView(postUsername, post.getContent(), post.getTimestamp()));
-        }
-
-        return postViews;
 
     }
 }
