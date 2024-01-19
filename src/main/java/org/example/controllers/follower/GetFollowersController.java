@@ -6,20 +6,18 @@ import org.example.services.follower.GetFollowersOfUserService;
 import org.example.services.follower.GetFollowingOfUserService;
 import org.example.utils.JwtUtils;
 
+import java.sql.SQLException;
 import java.util.List;
 
 public class GetFollowersController {
 
-    public void viewFollowers(Context ctx) {
+    public void viewFollowers(Context ctx) throws SQLException {
         String username = JwtUtils.getUserUsernameFromJwt(ctx);
         Paging paging = Paging.fromContext(ctx);
 
-        try {
-            List<String> followers = GetFollowersOfUserService.getFollowersOfUser(username, paging);
-            ctx.status(201).json(followers);
-        }catch (RuntimeException e) {
-            ctx.status(500).json(e.getMessage());
-        }
+        List<String> followers = GetFollowersOfUserService.getFollowersOfUser(username, paging);
+        ctx.status(201).json(followers);
+
     }
 
     public void viewFollowing(Context ctx) {
@@ -30,7 +28,7 @@ public class GetFollowersController {
         try {
             List<String> following = GetFollowingOfUserService.getFollowingOfUser(username, paging);
             ctx.status(201).json(following);
-        }catch (RuntimeException e) {
+        } catch (RuntimeException e) {
             ctx.status(500).json(e.getMessage());
         }
     }

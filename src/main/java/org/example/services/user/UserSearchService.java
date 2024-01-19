@@ -9,18 +9,16 @@ import java.util.List;
 
 public class UserSearchService {
 
-    public static List<String> searchUsersWithSearchTerm(String searchTerm, Paging paging) {
-        try {
-            return DbUtils.inTransaction(connection -> {
-                List<String> matchingUsernames = UserRepository.searchUsers(connection, searchTerm, paging);
+    public static List<String> searchUsersWithSearchTerm(String searchTerm, Paging paging) throws SQLException {
 
-                if (matchingUsernames.isEmpty()) {
-                    throw new RuntimeException("No matching users found");
-                }
-                return matchingUsernames;
-            });
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+        return DbUtils.inTransaction(connection -> {
+            List<String> matchingUsernames = UserRepository.searchUsers(connection, searchTerm, paging);
+
+            if (matchingUsernames.isEmpty()) {
+                throw new RuntimeException("No matching users found");
+            }
+            return matchingUsernames;
+        });
+
     }
 }

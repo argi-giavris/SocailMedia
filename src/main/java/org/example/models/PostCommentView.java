@@ -16,3 +16,4 @@ public class PostCommentView {
     LocalDateTime postCreatedAt;
     List<CommentView> postComments;
 }
+

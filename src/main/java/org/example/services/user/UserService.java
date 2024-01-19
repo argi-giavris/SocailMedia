@@ -12,39 +12,30 @@ import java.util.List;
 public class UserService {
 
 
-    public static void registerUser(User user) throws RuntimeException {
+    public static void registerUser(User user) throws RuntimeException, SQLException {
 
-        UserRepository userRepo = new UserRepository();
-//        if (!userRepo.emailHasValidFormat(user.getUsername())) {
-//            throw new RuntimeException("Email is not valid");
-//        }
+        DbUtils.inTransactionWithoutResult(connection -> {
+            if (UserRepository.userExistsByEmail(connection, user.getUsername())) {
+                throw new RuntimeException("User with current email already exists");
+            }
+            if (!UserRepository.isValidPassword(user.getPassword())) {
+                throw new RuntimeException("Invalid password. Password must meet the specified criteria.");
+            }
 
+            UserRepository.registerUser(connection, user);
+        });
 
-        try {
-            DbUtils.inTransactionWithoutResult(connection -> {
-                if (userRepo.userExistsByEmail(connection, user.getUsername())) {
-                    throw new RuntimeException("User with current email already exists");
-                }
-                if (!userRepo.isValidPassword(user.getPassword())) {
-                    throw new RuntimeException("Invalid password. Password must meet the specified criteria.");
-                }
-
-                userRepo.registerUser(connection, user);
-            });
-        } catch (SQLException e) {
-            throw new RuntimeException("Error registering user", e);
-        }
 
     }
 
     public static String loginUser(User user) throws SQLException {
         User authenticatedUser = authenticateUser(user);
         if (authenticatedUser != null) {
-            JwtUtils jwt = new JwtUtils();
-            return jwt.generateJwt(authenticatedUser);
+            return JwtUtils.generateJwt(authenticatedUser);
         } else {
             throw new RuntimeException("Authentication failed");
         }
+
     }
 
     private static User authenticateUser(User user) throws SQLException {
@@ -59,8 +50,6 @@ public class UserService {
             return null;
         });
     }
-
-
 
 
 }

@@ -6,18 +6,17 @@ import org.example.models.Follower;
 import org.example.services.follower.FollowService;
 import org.example.utils.JwtUtils;
 
+import java.sql.SQLException;
+
 public class FollowController {
 
-    public void follow(Context ctx) {
+    public void follow(Context ctx) throws SQLException {
         //json will have the userId that the logged user wants to follow
         FollowUserIdDto userIdToFollow = ctx.bodyAsClass(FollowUserIdDto.class);
         String username = JwtUtils.getUserUsernameFromJwt(ctx);
 
-        try {
-            FollowService.addFollower(userIdToFollow, username);
-        } catch (RuntimeException e) {
-            ctx.status(500).json(e.getMessage());
-        }
+        FollowService.addFollower(userIdToFollow, username);
+
 
     }
 

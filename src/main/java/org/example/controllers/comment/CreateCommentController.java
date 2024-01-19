@@ -11,15 +11,12 @@ import java.sql.SQLException;
 
 public class CreateCommentController {
 
-    public void comment(Context ctx) {
+    public void comment(Context ctx) throws SQLException {
         CommentContentAndPostDto comment = ctx.bodyAsClass(CommentContentAndPostDto.class);
         UserUsernameAndRoleDto commentator = JwtUtils.getUserFromJwt(ctx);
 
-        try {
-            CreateCommentService.createComment(comment, commentator);
-            ctx.status(201).json(comment.getContent());
-        } catch (RuntimeException | SQLException e) {
-            ctx.status(500).json(e.getMessage());
-        }
+        CreateCommentService.createComment(comment, commentator);
+        ctx.status(201).json(comment.getContent());
+
     }
 }

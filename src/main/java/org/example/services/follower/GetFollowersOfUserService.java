@@ -11,24 +11,22 @@ import java.util.List;
 
 public class GetFollowersOfUserService {
 
-    public static List<String> getFollowersOfUser( String username, Paging paging) {
-        try {
-            return DbUtils.inTransaction(connection -> {
-                UserRepository userRepo = new UserRepository();
-                Integer userId = userRepo.getUserIdByUsername(connection, username);
+    public static List<String> getFollowersOfUser(String username, Paging paging) throws SQLException {
 
-                List<Integer> followersIds = FollowerRepository.getFollowersUserIds(connection, userId, paging);
+        return DbUtils.inTransaction(connection -> {
+            UserRepository userRepo = new UserRepository();
+            Integer userId = userRepo.getUserIdByUsername(connection, username);
 
-                if (followersIds.isEmpty()) {
-                    throw new RuntimeException("You have no followers");
-                }
+            List<Integer> followersIds = FollowerRepository.getFollowersUserIds(connection, userId, paging);
 
-                List<String> followersNames = UserRepository.getListOfUsernamesById(connection, followersIds);
+            if (followersIds.isEmpty()) {
+                throw new RuntimeException("You have no followers");
+            }
 
-                return followersNames;
-            });
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+            List<String> followersNames = UserRepository.getListOfUsernamesById(connection, followersIds);
+
+            return followersNames;
+        });
+
     }
 }

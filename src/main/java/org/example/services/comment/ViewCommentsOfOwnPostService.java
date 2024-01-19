@@ -14,36 +14,34 @@ import java.util.List;
 
 public class ViewCommentsOfOwnPostService {
 
-    public static List<CommentView> getCommentsOfOwnPosts(String username, Paging paging) {
-        try {
-            return DbUtils.inTransaction(connection -> {
-                UserRepository userRepo = new UserRepository();
-                Integer userId = userRepo.getUserIdByUsername(connection, username);
+    public static List<CommentView> getCommentsOfOwnPosts(String username, Paging paging) throws SQLException {
 
-                if (PostRepository.getNumberOfPostsByUserId(connection, userId) < 1) {
-                    throw new RuntimeException("You have no posts yet");
-                }
+        return DbUtils.inTransaction(connection -> {
+            UserRepository userRepo = new UserRepository();
+            Integer userId = userRepo.getUserIdByUsername(connection, username);
 
-                List<CommentView> commentViews = new ArrayList<>();
+            if (PostRepository.getNumberOfPostsByUserId(connection, userId) < 1) {
+                throw new RuntimeException("You have no posts yet");
+            }
 
-                List<Comment> comments = CommentRepository.getPaginatedCommentsOfUsersOwnPosts(connection, userId, paging);
+            List<CommentView> commentViews = new ArrayList<>();
 
-                List<CommentView> postCommentViews = comments.stream()
-                        .map(comment -> new CommentView(
-                                comment.getPostId(),
-                                UserRepository.getUsernameById(connection, comment.getUserId()),
-                                comment.getContent(),
-                                comment.getTimestamp()
-                        ))
-                        .toList();
+            List<Comment> comments = CommentRepository.getPaginatedCommentsOfUsersOwnPosts(connection, userId, paging);
 
-                commentViews.addAll(postCommentViews);
+            List<CommentView> postCommentViews = comments.stream()
+                    .map(comment -> new CommentView(
+                            comment.getPostId(),
+                            UserRepository.getUsernameById(connection, comment.getUserId()),
+                            comment.getContent(),
+                            comment.getTimestamp()
+                    ))
+                    .toList();
+
+            commentViews.addAll(postCommentViews);
 
 
-                return commentViews;
-            });
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+            return commentViews;
+        });
+
     }
 }

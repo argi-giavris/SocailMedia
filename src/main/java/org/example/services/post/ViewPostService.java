@@ -15,32 +15,30 @@ import java.util.List;
 
 public class ViewPostService {
 
-    public static List<PostView> getFollowersViewPosts(String username, Paging paging ) {
-        try {
-            return DbUtils.inTransaction(connection -> {
-                Integer userId = UserRepository.getUserIdByUsername(connection,username);
+    public static List<PostView> getFollowersViewPosts(String username, Paging paging) throws SQLException {
 
-                if (FollowerRepository.countOfFollowingUsers(connection, userId) == 0) {
-                    throw new RuntimeException("You are not following anyone");
-                }
+        return DbUtils.inTransaction(connection -> {
+            Integer userId = UserRepository.getUserIdByUsername(connection, username);
 
-                List<Post> posts = PostRepository.getPostsOfFollowingUsers(connection, userId, paging);
+            if (FollowerRepository.countOfFollowingUsers(connection, userId) == 0) {
+                throw new RuntimeException("You are not following anyone");
+            }
 
-                if (posts.isEmpty()) {
-                    throw new RuntimeException("Following Users have no posts yet");
-                }
+            List<Post> posts = PostRepository.getPostsOfFollowingUsers(connection, userId, paging);
 
-                List<PostView> postViews = new ArrayList<>();
-                for (Post post : posts) {
-                    String postUsername = UserRepository.getUsernameById(connection, post.getUserId());
-                    postViews.add(new PostView(postUsername, post.getContent(), post.getTimestamp()));
-                }
+            if (posts.isEmpty()) {
+                throw new RuntimeException("Following Users have no posts yet");
+            }
 
-                return postViews;
-            });
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+            List<PostView> postViews = new ArrayList<>();
+            for (Post post : posts) {
+                String postUsername = UserRepository.getUsernameById(connection, post.getUserId());
+                postViews.add(new PostView(postUsername, post.getContent(), post.getTimestamp()));
+            }
+
+            return postViews;
+        });
+
 
     }
 }

@@ -5,19 +5,17 @@ import org.example.models.Paging;
 import org.example.services.user.UserSearchService;
 import org.example.services.user.UserService;
 
+import java.sql.SQLException;
 import java.util.List;
 
 public class UserSearchController {
 
-    public void searchUser(Context ctx) {
+    public void searchUser(Context ctx) throws SQLException {
         String searchTerm = ctx.queryParam("name");
         Paging paging = Paging.fromContext(ctx);
 
-        try {
-            List<String> users = UserSearchService.searchUsersWithSearchTerm(searchTerm, paging);
-            ctx.status(201).json(users);
-        }catch (RuntimeException e) {
-            ctx.status(500).json(e.getMessage());
-        }
+        List<String> users = UserSearchService.searchUsersWithSearchTerm(searchTerm, paging);
+        ctx.status(201).json(users);
+
     }
 }

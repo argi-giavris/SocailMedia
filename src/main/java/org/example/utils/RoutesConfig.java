@@ -43,5 +43,8 @@ public class RoutesConfig {
         app.get("/api/search/user", usc::searchUser); //http://localhost:8080/api/search/user?name=test
         app.get("/api/share-post", gpsl::getSharedLinkOfPost);
         app.get("/rest/posts", vpwcc::viewPostWthComments); //http://localhost:8080/rest/posts?postId=7
+
+        app.exception(Exception.class, GlobalExceptionHandler::handleException);
+
     }
 }

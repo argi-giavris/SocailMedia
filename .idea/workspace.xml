@@ -4,33 +4,34 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="25a1194c-042e-4ec1-90ba-cd90e50d3ba7" name="Changes" comment="views">
+    <list default="true" id="25a1194c-042e-4ec1-90ba-cd90e50d3ba7" name="Changes" comment="changes, views, paging, share link">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/controllers/comment/CreateCommentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/controllers/comment/CreateCommentController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/controllers/comment/ViewCommentsOfOwnPostController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/controllers/comment/ViewCommentsOfOwnPostController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/controllers/follower/FollowController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/controllers/follower/FollowController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/controllers/follower/GetFollowersController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/controllers/follower/GetFollowersController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/controllers/post/CreatePostController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/controllers/post/CreatePostController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/controllers/post/GetPostSharedLinkController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/controllers/post/GetPostSharedLinkController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/controllers/post/ViewPostController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/controllers/post/ViewPostController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/controllers/post/ViewPostWithCommentsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/controllers/post/ViewPostWithCommentsController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/controllers/post/ViewUserPostsWithCommentsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/controllers/post/ViewUserPostsWithCommentsController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/controllers/user/UserLoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/controllers/user/UserLoginController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/controllers/user/UserRegisterController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/controllers/user/UserRegisterController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/controllers/user/UserSearchController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/controllers/user/UserSearchController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/models/CommentView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/models/CommentView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/models/Follower.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/models/Follower.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/models/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/models/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/repositories/CommentRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/repositories/CommentRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/repositories/FollowerRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/repositories/FollowerRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/repositories/PostRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/repositories/PostRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/models/PostCommentView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/models/PostCommentView.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/repositories/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/repositories/UserRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/services/CommentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/services/comment/CreateCommentService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/services/FollowService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/services/follower/FollowService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/services/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/services/user/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/services/comment/CreateCommentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/services/comment/CreateCommentService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/services/comment/ViewCommentsOfOwnPostService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/services/comment/ViewCommentsOfOwnPostService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/services/follower/FollowService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/services/follower/FollowService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/services/follower/GetFollowersOfUserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/services/follower/GetFollowersOfUserService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/services/post/CreatePostService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/services/post/CreatePostService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/services/post/PostSharedLinkService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/services/post/PostSharedLinkService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/services/post/ViewPostService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/services/post/ViewPostService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/services/post/ViewPostsWithCommentsService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/services/post/ViewPostsWithCommentsService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/utils/AppConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/utils/AppConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/services/user/UserSearchService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/services/user/UserSearchService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/services/user/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/services/user/UserService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/utils/RoutesConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/utils/RoutesConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/config.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/config.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -116,7 +117,8 @@
       <workItem from="1704900479928" duration="11937000" />
       <workItem from="1704983459284" duration="19107000" />
       <workItem from="1705313823308" duration="2617000" />
-      <workItem from="1705401786340" duration="50743000" />
+      <workItem from="1705401786340" duration="52107000" />
+      <workItem from="1705660443872" duration="6772000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <option name="closed" value="true" />
@@ -150,7 +152,15 @@
       <option name="project" value="LOCAL" />
       <updated>1705064655972</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="changes, views, paging, share link">
+      <option name="closed" value="true" />
+      <created>1705610586504</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1705610586504</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -161,7 +171,8 @@
     <MESSAGE value="commit" />
     <MESSAGE value="first view commit" />
     <MESSAGE value="views" />
-    <option name="LAST_COMMIT_MESSAGE" value="views" />
+    <MESSAGE value="changes, views, paging, share link" />
+    <option name="LAST_COMMIT_MESSAGE" value="changes, views, paging, share link" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -175,6 +186,11 @@
           <url>file://$PROJECT_DIR$/src/main/java/org/example/services/post/CreatePostService.java</url>
           <line>21</line>
           <option name="timeStamp" value="15" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/org/example/utils/GlobalExceptionHandler.java</url>
+          <line>12</line>
+          <option name="timeStamp" value="21" />
         </line-breakpoint>
         <breakpoint enabled="true" type="java-exception">
           <properties class="com.fasterxml.jackson.databind.exc.InvalidDefinitionException" package="com.fasterxml.jackson.databind.exc" />

@@ -15,27 +15,25 @@ import java.time.LocalDateTime;
 
 public class CreatePostService {
 
-    public static void createPost(PostContentDto postDto, UserUsernameAndRoleDto author) {
+    public static void createPost(PostContentDto postDto, UserUsernameAndRoleDto author) throws SQLException {
 
-        try {
-            DbUtils.inTransactionWithoutResult(connection -> {
-                if (postExceededCharactersLimit(postDto.getContent(), author.getRole())) {
-                    throw new RuntimeException("Post length exceeded characters limit");
-                }
 
-                UserRepository userRepo = new UserRepository();
-                Integer userId = userRepo.getUserIdByUsername(connection, author.getUsername());
+        DbUtils.inTransactionWithoutResult(connection -> {
+            if (postExceededCharactersLimit(postDto.getContent(), author.getRole())) {
+                throw new RuntimeException("Post length exceeded characters limit");
+            }
 
-                LocalDateTime now = TimeConfig.getTime();
-                Post post = Post.fromPostContentDto(postDto, userId, now);
+            UserRepository userRepo = new UserRepository();
+            Integer userId = userRepo.getUserIdByUsername(connection, author.getUsername());
 
-                PostRepository postRepo = new PostRepository();
-                postRepo.insertPost(connection, post);
+            LocalDateTime now = TimeConfig.getTime();
+            Post post = Post.fromPostContentDto(postDto, userId, now);
 
-            });
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+            PostRepository postRepo = new PostRepository();
+            postRepo.insertPost(connection, post);
+
+        });
+
 
     }
 

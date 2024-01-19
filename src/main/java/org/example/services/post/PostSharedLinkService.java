@@ -8,19 +8,17 @@ import java.sql.SQLException;
 
 public class PostSharedLinkService {
 
-    public static PostSharedLink generatePostSharedLink(Integer postId) {
+    public static PostSharedLink generatePostSharedLink(Integer postId) throws SQLException {
 
-        try{
-            return DbUtils.inTransaction(connection -> {
-                if(!PostRepository.postExistsById(connection, postId)) {
-                    throw new RuntimeException("Post not found");
-                }
 
-                return PostSharedLink.generateLink( postId);
-            });
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+        return DbUtils.inTransaction(connection -> {
+            if (!PostRepository.postExistsById(connection, postId)) {
+                throw new RuntimeException("Post not found");
+            }
+
+            return PostSharedLink.generateLink(postId);
+        });
+
 
     }
 }

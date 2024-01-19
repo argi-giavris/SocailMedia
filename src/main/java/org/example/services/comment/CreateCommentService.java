@@ -18,13 +18,11 @@ public class CreateCommentService {
     public static void createComment(CommentContentAndPostDto commentDto, UserUsernameAndRoleDto commentator) throws SQLException {
 
         DbUtils.inTransactionWithoutResult(connection -> {
-            UserRepository userRepo = new UserRepository();
             CommentRepository commentRepo = new CommentRepository();
-            PostRepository postRepo = new PostRepository();
 
-            Integer userId = userRepo.getUserIdByUsername(connection, commentator.getUsername());
+            Integer userId = UserRepository.getUserIdByUsername(connection, commentator.getUsername());
 
-            if (!postRepo.postExistsById(connection, commentDto.getPostId())) {
+            if (!PostRepository.postExistsById(connection, commentDto.getPostId())) {
                 throw new RuntimeException("Post id does not exist");
             }
 
@@ -37,7 +35,7 @@ public class CreateCommentService {
             LocalDateTime now = TimeConfig.getTime();
             Comment comment = Comment.fromCommentContentAndPostDto(commentDto, userId, now);
 
-            commentRepo.insertComment(connection, comment);
+            CommentRepository.insertComment(connection, comment);
         });
 
     }

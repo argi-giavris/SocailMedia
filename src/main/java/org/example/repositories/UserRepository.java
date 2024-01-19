@@ -33,7 +33,7 @@ public class UserRepository {
         }
     }
 
-    public boolean userExistsByEmail(Connection connection, String email) throws SQLException {
+    public static boolean userExistsByEmail(Connection connection, String email) throws SQLException {
         String query = "SELECT COUNT(*) FROM users WHERE username = ?";
         try (var statement = connection.prepareStatement(query)) {
             statement.setString(1, email);

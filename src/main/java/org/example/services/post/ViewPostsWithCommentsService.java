@@ -15,51 +15,46 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class ViewPostsWithCommentsService {
-    public static List<PostCommentView> getUserPostsWithComments(String username, Paging paging) {
+    public static List<PostCommentView> getUserPostsWithComments(String username, Paging paging) throws SQLException {
 
-        try {
-            return DbUtils.inTransaction(connection -> {
-                UserRepository userRepo = new UserRepository();
-                Integer userId = userRepo.getUserIdByUsername(connection, username);
 
-                List<Post> posts = PostRepository.getPostsByUserId(connection, Collections.singletonList(userId), paging);
+        return DbUtils.inTransaction(connection -> {
+            Integer userId = UserRepository.getUserIdByUsername(connection, username);
 
-                if (posts.isEmpty()) {
-                    throw new RuntimeException("You have no posts yet");
-                }
+            List<Post> posts = PostRepository.getPostsByUserId(connection, Collections.singletonList(userId), paging);
 
-                List<PostCommentView> postCommentViews = new ArrayList<>();
-                Integer limitComments = 100;
+            if (posts.isEmpty()) {
+                throw new RuntimeException("You have no posts yet");
+            }
 
-                for (Post post : posts) {
+            List<PostCommentView> postCommentViews = new ArrayList<>();
+            Integer limitComments = 100;
 
-                    PostCommentView postCommentView = getPostCommentView(connection, post, limitComments);
-                    postCommentViews.add(postCommentView);
-                }
+            for (Post post : posts) {
 
-                return postCommentViews;
-            });
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+                PostCommentView postCommentView = getPostCommentView(connection, post, limitComments);
+                postCommentViews.add(postCommentView);
+            }
+
+            return postCommentViews;
+        });
+
 
     }
 
-    public static PostCommentView getPostCommentsByPostId(Integer postId) {
-        try {
-            return DbUtils.inTransaction(connection -> {
+    public static PostCommentView getPostCommentsByPostId(Integer postId) throws SQLException {
 
-                if (!PostRepository.postExistsById(connection, postId)) {
-                    throw new RuntimeException("Post not found");
-                }
+        return DbUtils.inTransaction(connection -> {
 
-                Post post = PostRepository.getPostByPostId(connection, postId);
-                PostCommentView postCommentView = getPostCommentView(connection, post, 100);
-                return postCommentView;
-            });
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+            if (!PostRepository.postExistsById(connection, postId)) {
+                throw new RuntimeException("Post not found");
+            }
+
+            Post post = PostRepository.getPostByPostId(connection, postId);
+            PostCommentView postCommentView = getPostCommentView(connection, post, 100);
+            return postCommentView;
+        });
+
     }
 
     private static PostCommentView getPostCommentView(Connection connection, Post post, Integer limit) {

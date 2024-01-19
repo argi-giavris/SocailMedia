@@ -8,20 +8,18 @@ import org.example.services.post.ViewPostService;
 import org.example.utils.JwtUtils;
 
 
-
+import java.sql.SQLException;
 import java.util.List;
 
 public class ViewPostController {
 
-    public void viewFollowersPosts(Context ctx){
+    public void viewFollowersPosts(Context ctx) throws SQLException {
 
         String username = JwtUtils.getUserUsernameFromJwt(ctx);
         Paging paging = Paging.fromContext(ctx);
-        try {
-            List<PostView> viewPosts = ViewPostService.getFollowersViewPosts(username,paging);
-            ctx.status(201).json(viewPosts);
-        }catch (RuntimeException e) {
-            ctx.status(500).json(e.getMessage());
-        }
+
+        List<PostView> viewPosts = ViewPostService.getFollowersViewPosts(username, paging);
+        ctx.status(201).json(viewPosts);
+
     }
 }

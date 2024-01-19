@@ -6,18 +6,17 @@ import org.example.models.PostCommentView;
 import org.example.services.post.ViewPostsWithCommentsService;
 import org.example.utils.JwtUtils;
 
+import java.sql.SQLException;
 import java.util.List;
 
 public class ViewUserPostsWithCommentsController {
 
-    public void viewUserPostsWithComments(Context ctx) {
+    public void viewUserPostsWithComments(Context ctx) throws SQLException {
         String username = JwtUtils.getUserUsernameFromJwt(ctx);
         Paging paging = Paging.fromContext(ctx);
-        try {
-            List<PostCommentView> postCommentViews = ViewPostsWithCommentsService.getUserPostsWithComments(username, paging);
-            ctx.status(201).json(postCommentViews);
-        } catch (RuntimeException e) {
-            ctx.status(500).json(e.getMessage());
-        }
+
+        List<PostCommentView> postCommentViews = ViewPostsWithCommentsService.getUserPostsWithComments(username, paging);
+        ctx.status(201).json(postCommentViews);
+
     }
 }

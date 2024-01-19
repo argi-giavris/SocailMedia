@@ -12,21 +12,19 @@ import java.sql.SQLException;
 
 public class FollowService {
 
-    public static void addFollower(FollowUserIdDto dto, String username) {
-        try {
-            DbUtils.inTransactionWithoutResult(connection -> {
-                Integer followerUserId = findLoggedUserId(username, connection);
+    public static void addFollower(FollowUserIdDto dto, String username) throws SQLException {
 
-                FollowerRepository followerRepo = new FollowerRepository();
+        DbUtils.inTransactionWithoutResult(connection -> {
+            Integer followerUserId = findLoggedUserId(username, connection);
 
-                validateFollowers(dto, followerUserId, followerRepo);
+            FollowerRepository followerRepo = new FollowerRepository();
 
-                Follower follower = Follower.newFollowersRelationship(followerUserId, dto.getUserIdToFollow());
-                FollowerRepository.addFollowerRepo(follower);
-            });
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+            validateFollowers(dto, followerUserId, followerRepo);
+
+            Follower follower = Follower.newFollowersRelationship(followerUserId, dto.getUserIdToFollow());
+            FollowerRepository.addFollowerRepo(follower);
+        });
+
 
     }
 
@@ -44,7 +42,7 @@ public class FollowService {
 
         try {
             DbUtils.inTransactionWithoutResult(connection -> {
-                Integer followerUserId =  findLoggedUserId(username, connection);
+                Integer followerUserId = findLoggedUserId(username, connection);
 
 
                 FollowerRepository followerRepo = new FollowerRepository();
