@@ -10,22 +10,20 @@ import java.util.List;
 
 public class GetFollowingOfUserService {
 
-    public static List<String> getFollowingOfUser(String username, Paging paging) {
-        try {
-            return DbUtils.inTransaction(connection -> {
-                UserRepository userRepo = new UserRepository();
-                Integer userId = userRepo.getUserIdByUsername(connection, username);
+    public static List<String> getFollowingOfUser(String username, Paging paging) throws SQLException {
 
-                List<Integer> followingIds = FollowerRepository.getFollowingUserIds(connection, userId, paging);
+        return DbUtils.inTransaction(connection -> {
+            UserRepository userRepo = new UserRepository();
+            Integer userId = userRepo.getUserIdByUsername(connection, username);
 
-                if (followingIds.isEmpty()) {
-                    throw new RuntimeException("You are not following any user");
-                }
+            List<Integer> followingIds = FollowerRepository.getFollowingUserIds(connection, userId, paging);
 
-                return UserRepository.getListOfUsernamesById(connection, followingIds);
-            });
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+            if (followingIds.isEmpty()) {
+                throw new RuntimeException("You are not following any user");
+            }
+
+            return UserRepository.getListOfUsernamesById(connection, followingIds);
+        });
+
     }
 }

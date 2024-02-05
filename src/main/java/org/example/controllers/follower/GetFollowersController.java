@@ -20,16 +20,14 @@ public class GetFollowersController {
 
     }
 
-    public void viewFollowing(Context ctx) {
+    public void viewFollowing(Context ctx) throws SQLException{
         String username = JwtUtils.getUserUsernameFromJwt(ctx);
         int page = ctx.queryParamAsClass("page", Integer.class).getOrDefault(1);
         int pageSize = ctx.queryParamAsClass("pageSize", Integer.class).getOrDefault(20);
         Paging paging = new Paging(page, pageSize);
-        try {
-            List<String> following = GetFollowingOfUserService.getFollowingOfUser(username, paging);
-            ctx.status(201).json(following);
-        } catch (RuntimeException e) {
-            ctx.status(500).json(e.getMessage());
-        }
+
+        List<String> following = GetFollowingOfUserService.getFollowingOfUser(username, paging);
+        ctx.status(201).json(following);
+
     }
 }

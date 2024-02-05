@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="25a1194c-042e-4ec1-90ba-cd90e50d3ba7" name="Changes" comment="changes, views, paging, share link">
+    <list default="true" id="25a1194c-042e-4ec1-90ba-cd90e50d3ba7" name="Changes" comment="fixes">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -94,7 +94,7 @@
       <workItem from="1705401786340" duration="52107000" />
       <workItem from="1705660443872" duration="6772000" />
       <workItem from="1706092289919" duration="665000" />
-      <workItem from="1707132158556" duration="1092000" />
+      <workItem from="1707132158556" duration="2191000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <option name="closed" value="true" />
@@ -136,7 +136,15 @@
       <option name="project" value="LOCAL" />
       <updated>1705610586504</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="fixes">
+      <option name="closed" value="true" />
+      <created>1707137640062</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1707137640062</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -148,7 +156,8 @@
     <MESSAGE value="first view commit" />
     <MESSAGE value="views" />
     <MESSAGE value="changes, views, paging, share link" />
-    <option name="LAST_COMMIT_MESSAGE" value="changes, views, paging, share link" />
+    <MESSAGE value="fixes" />
+    <option name="LAST_COMMIT_MESSAGE" value="fixes" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
