@@ -38,23 +38,21 @@ public class FollowService {
         }
     }
 
-    public static void removeFollower(Follower loggedUser, String username) {
-
-        try {
-            DbUtils.inTransactionWithoutResult(connection -> {
-                Integer followerUserId = findLoggedUserId(username, connection);
+    public static void removeFollower(Follower loggedUser, String username) throws SQLException {
 
 
-                FollowerRepository followerRepo = new FollowerRepository();
-                if (!followerRepo.followersRelationshipExists(followerUserId, loggedUser.getUserIdToFollow())) {
-                    throw new RuntimeException("You are not following this user");
-                }
+        DbUtils.inTransactionWithoutResult(connection -> {
+            Integer followerUserId = findLoggedUserId(username, connection);
 
-                FollowerRepository.removeFollowerRepo(loggedUser);
-            });
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+
+            FollowerRepository followerRepo = new FollowerRepository();
+            if (!followerRepo.followersRelationshipExists(followerUserId, loggedUser.getUserIdToFollow())) {
+                throw new RuntimeException("You are not following this user");
+            }
+
+            FollowerRepository.removeFollowerRepo(loggedUser);
+        });
+
     }
 
     private static Integer findLoggedUserId(String username, Connection connection) {

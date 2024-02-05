@@ -16,19 +16,14 @@ public class FollowController {
         String username = JwtUtils.getUserUsernameFromJwt(ctx);
 
         FollowService.addFollower(userIdToFollow, username);
-
-
     }
 
-    public void unfollow(Context ctx) {
-        //json will have the userId that the logged user wants to follow
+    public void unfollow(Context ctx) throws SQLException {
+        //json will have the userId that the logged user wants to unfollow
         Follower loggedUser = ctx.bodyAsClass(Follower.class);
         String username = JwtUtils.getUserUsernameFromJwt(ctx);
 
-        try {
-            FollowService.removeFollower(loggedUser, username);
-        } catch (RuntimeException e) {
-            ctx.status(500).json(e.getMessage());
-        }
+        FollowService.removeFollower(loggedUser, username);
+
     }
 }
